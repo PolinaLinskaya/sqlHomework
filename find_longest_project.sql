@@ -1,0 +1,9 @@
+SELECT Project.Name, DATEDIFF(MONTH, Project.START_DATE, Project.FINISH_DATE) AS MONTH_COUNT
+FROM Project
+WHERE DATEDIFF(MONTH, Project.START_DATE, Project.FINISH_DATE) = (
+    SELECT MAX(ProjectDuration.MONTH_COUNT)
+    FROM (
+        SELECT DATEDIFF(MONTH, START_DATE, FINISH_DATE) AS MONTH_COUNT
+        FROM Project
+    ) AS ProjectDuration
+);
